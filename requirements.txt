@@ -1,0 +1,8 @@
+# KI-Strategie-Simulation: Deutschland's AI-Dilemma
+# Keine externen Abhängigkeiten erforderlich - nur Python Standard Library
+
+# Python Version: >= 3.7
+
+# Optional: Für erweiterte Funktionalität
+# colorama>=0.4.6  # Für farbige Terminal-Ausgabe (optional)
+# rich>=13.0.0     # Für erweiterte Formatierung (optional)

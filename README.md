@@ -22,30 +22,35 @@ Die Simulation umfasst **6 Akteure**:
    - Leitet die Diskussion
    - Fordert radikales Denken
 
-2. **Agent T** - Der Technologe
-   - Vertritt: Maschinenbau, VDMA, Realwirtschaft
-   - Position: "Wir brauchen KI in der Fabrik, JETZT!"
-   - Prioritäten: Edge Computing, Datensouveränität, ROI
+2. **Agent TF** - Der Technologieforscher
+   - Vertritt: Maschinenbau, VDMA, angewandte KI-Forschung (Fraunhofer/DFKI)
+   - Position: "Wir haben brillante Forschung, aber der Transfer in die Fabrik scheitert!"
+   - Prioritäten: Applied Research, Transfer, Edge Computing, Datensouveränität
+   - Besonderheit: Brücke zwischen Theorie und Praxis
 
-3. **Agent F** - Die Forscherin
-   - Vertritt: DFKI, Fraunhofer, Exzellenzforschung
-   - Position: "Trusted AI ist unser Wettbewerbsvorteil"
-   - Prioritäten: Gaia-X, Transfer, Ethik
+3. **Agent Ö** - Der Ökonom
+   - Vertritt: Volkswirtschaftliche Analyse, Wohlfahrtsökonomie
+   - Position: "KI-Adoption kostet uns 40-80 Mrd. € BIP jährlich - das sind makro-ökonomische Dimensionen!"
+   - Prioritäten: Produktivitätswachstum, Wettbewerbsfähigkeit, Netzwerkeffekte, Wohlfahrt
+   - Besonderheit: Quantifiziert volkswirtschaftliche Kosten und Nutzen
 
 4. **Agent G** - Der Gewerkschafter
    - Vertritt: DGB, Arbeitnehmerschaft
    - Position: "KI darf nicht auf Kosten der Menschen gehen"
    - Prioritäten: Mitbestimmung, Qualifizierung, soziale Absicherung
+   - Besonderheit: Fokus auf Verteilungsfragen
 
 5. **Agent P** - Die Politikerin
    - Vertritt: BMWK, BMBF, Bundesregierung
    - Position: "Wir brauchen einen umsetzbaren Konsens"
    - Prioritäten: Budget, EU-Konformität, Wahlen
+   - Besonderheit: Balanciert zwischen allen Stakeholdern
 
 6. **Agent FP** - Der First Principles Dekonstrukteur
    - Vertritt: Externe Disruption
    - Position: "Alle eure Annahmen sind falsch"
    - Methodik: 4-Phasen-Dekonstruktion
+   - Besonderheit: Bricht Denkmuster auf
 
 ## 🔄 Diskussionsphasen
 
@@ -172,9 +177,15 @@ Die Simulation generiert:
 
 MODERATOR: Deutschland steht vor einem historischen Scheideweg...
 
-🎤 Agent T - Der Technologe
+🎤 Agent TF - Der Technologieforscher
 ═══════════════════════════════════════════════════════════════
-Ich vertrete hier die Realwirtschaft - den Maschinenbau...
+Ich komme aus einer einzigartigen Position - ich habe sowohl in der
+industriellen Forschung als auch mit der Realwirtschaft gearbeitet...
+
+🎤 Agent Ö - Der Ökonom
+═══════════════════════════════════════════════════════════════
+Die volkswirtschaftlichen Zahlen sind eindeutig: Produktivitätslücke
+kostet 40-80 Mrd. € BIP jährlich...
 [...]
 
 📊 ZUSAMMENFASSUNG
@@ -211,8 +222,8 @@ ai_strategy_simulation/
 │
 ├── agents.py                  # Agent-Klassen und Persönlichkeiten
 │   ├── Agent (Basisklasse)
-│   ├── AgentT (Technologe)
-│   ├── AgentF (Forscherin)
+│   ├── AgentTF (Technologieforscher - vereint Praxis + Forschung)
+│   ├── AgentÖ (Ökonom - volkswirtschaftliche Perspektive)
 │   ├── AgentG (Gewerkschafter)
 │   ├── AgentP (Politikerin)
 │   └── AgentFP (First Principles)

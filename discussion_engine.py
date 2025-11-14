@@ -7,7 +7,7 @@ Steuert den Ablauf, Phasen und Interaktionen zwischen Agenten
 import time
 import random
 from typing import List, Dict, Tuple
-from agents import Agent, AgentT, AgentF, AgentG, AgentP, AgentFP
+from agents import Agent, AgentTF, AgentÖ, AgentG, AgentP, AgentFP
 
 
 class Moderator:
@@ -165,8 +165,8 @@ class DiscussionEngine:
     def __init__(self, verbose: bool = True):
         self.moderator = Moderator()
         self.agents: List[Agent] = [
-            AgentT(),
-            AgentF(),
+            AgentTF(),
+            AgentÖ(),
             AgentG(),
             AgentP(),
             AgentFP()
@@ -304,13 +304,13 @@ class DiscussionEngine:
         """Sammelt Reaktionen der anderen Agenten auf Agent FP"""
         reactions_map = {
             1: {  # Nach Phase 1: Fundamentale Wahrheiten
-                "Agent T": """Moment... Sie nennen den Mittelständler das 'Nadelöhr'? Das höre ich zum
-ersten Mal so direkt. Aber... es stimmt. Ich habe Dutzende Gespräche geführt - viele
+                "Agent TF": """Moment... Sie nennen den Mittelständler das 'Nadelöhr'? Das höre ich zum
+ersten Mal so direkt. Aber... es stimmt. Ich kenne Dutzende solcher Fälle - viele
 Eigentümer WOLLEN nicht digitalisieren. Aus Angst, aus Überforderung. Ist brutal, aber wahr.""",
 
-                "Agent F": """Ihre 'Wahrheiten' sind... stark vereinfacht. Aber methodisch interessant.
-Ja, das Wissen ist in Menschen. Ja, wir brauchen Daten. Aber Sie ignorieren institutionelles
-Wissen, Unternehmenskultur - das lässt sich nicht einfach 'extrahieren'.""",
+                "Agent Ö": """Ihre 'Wahrheiten' sind ökonomisch interessant. Ja, der Mittelständler ist
+risikoscheu - das ist rational bei asymmetrischer Information! Aber Sie ignorieren institutionelles
+Wissen und Pfadabhängigkeiten - das lässt sich nicht einfach 'extrahieren'.""",
 
                 "Agent G": """'Wahrheit 2' - ja, das Wissen ist in Facharbeitern. Endlich sagt das jemand!
 Aber Ihre Richtung macht mir Angst. Wenn Sie die Menschen vom Unternehmen 'abkoppeln' wollen...""",
@@ -319,13 +319,13 @@ Aber Ihre Richtung macht mir Angst. Wenn Sie die Menschen vom Unternehmen 'abkop
 Die Frage 'Warum ist der Mittelständler die Konstante?' ist... berechtigt. Unbequem, aber berechtigt."""
             },
             2: {  # Nach Phase 2: Annahmen-Check
-                "Agent T": """STOPP. Sie greifen meine Grundannahme an - dass der Mittelständler der Vektor
+                "Agent TF": """STOPP. Sie greifen meine Grundannahme an - dass der Mittelständler der Vektor
 sein muss. Aber was ist die Alternative? 1000 Start-ups, die das Rad neu erfinden?
 Das ist Chaos, keine Strategie!""",
 
-                "Agent F": """Ihre Kritik an Gaia-X... schmerzt. Aber: Sie haben teilweise Recht. Wir haben
-4 Jahre diskutiert, und wo ist das Produkt? Catena-X funktioniert, aber nur im Automotive.
-'1000 kleine Lösungen' - das ist anti-akademisch, aber vielleicht praktischer?""",
+                "Agent Ö": """Ihre Annahmen-Kritik ist methodisch interessant. Tatsächlich frage ich mich auch:
+Warum optimieren wir immer INNERHALB des Systems Mittelstand? Vielleicht ist laterale Disruption
+ökonomisch effizienter als inkrementelle Transformation?""",
 
                 "Agent G": """'Anstellungsverhältnis ist 20. Jahrhundert-Denken' - das ist eine PROVOKATION!
 Das Anstellungsverhältnis schützt Menschen vor Ausbeutung! Ihr 'Gründer-Modell' - das ist
@@ -336,13 +336,13 @@ ausgepfiffen. Aber... unter uns... manchmal denke ich das auch. Unser System IST
 Nur: Wie ändert man ein System von innen?"""
             },
             3: {  # Nach Phase 3: Neuaufbau
-                "Agent T": """'Meister-Forscher-Tandems'... 'Industrial AI App Store'... das ist...
-eigentlich... brillant? Sie umgehen ALLE Blockaden. Kein Betriebsrat, kein risikoScheuer
-Eigentümer, kein Gaia-X-Komitee. Direct to market. Aber - wer schützt IP? Wer verhindert Wildwuchs?""",
+                "Agent TF": """'Meister-Forscher-Tandems'... 'Industrial AI App Store'... das ist...
+eigentlich... brillant? Sie umgehen ALLE Blockaden. Kein risikoScheuer Eigentümer, kein
+langwieriges Gaia-X-Komitee. Direct to market. Aber - wer schützt IP? Wer verhindert Wildwuchs?""",
 
-                "Agent F": """Ich bin hin- und hergerissen. Als Wissenschaftlerin: Das ist methodisch unsauber,
-keine Qualitätskontrolle, keine Standards. Aber als Pragmatikerin: Verdammt, das WÜRDE den Transfer
-lösen! Der Forscher IST direkt in der Umsetzung. Kein Valley of Death.""",
+                "Agent Ö": """Ökonomisch ist das faszinierend! Sie schaffen einen NEUEN MARKT für implizites
+Wissen. Das ist creative destruction à la Schumpeter. Aber: Die Transaktionskosten? Die
+Koordination? Wie verhindern Sie Marktversagen bei 1000 unkoordinierten Akteuren?""",
 
                 "Agent G": """DAS IST ENTEIGNUNG! Der Facharbeiter hat sein Wissen IM UNTERNEHMEN erworben,
 am Arbeitsplatz, bezahlt vom Arbeitgeber. Sie sagen jetzt 'das gehört dem Arbeiter' - rechtlich
@@ -377,15 +377,15 @@ aber nicht 'ist falsch'. Das ist aufschlussreich."""
     def _generate_final_statement(self, agent: Agent) -> str:
         """Generiert abschließendes Statement eines Agenten"""
         final_statements = {
-            "Agent T": """Ich nehme mit: Das Problem ist klarer als die Lösung. Der Mittelständler IST
+            "Agent TF": """Ich nehme mit: Das Transfer-Problem ist größer als gedacht. Der Mittelständler IST
 teilweise das Nadelöhr - das schmerzt zuzugeben. Agent FP's Ansatz ist radikal, vielleicht
-zu radikal. Aber die IDEE, Wissen direkt zu monetarisieren, hat Charme. Vielleicht nicht
-als Hauptstrategie, aber als Experimentierfeld? Ich wäre dabei.""",
+zu radikal. Aber die IDEE, Forscher und Praktiker DIREKT zu verbinden und Wissen zu monetarisieren,
+hat Charme. Vielleicht nicht als Hauptstrategie, aber als Experimentierfeld? Ich wäre dabei.""",
 
-            "Agent F": """Ich habe gelernt: First Principles zu denken bedeutet, heilige Kühe zu schlachten.
-Auch MEINE - Gaia-X, Transferzentren. Vielleicht brauchen wir beides: Top-down (Infrastruktur)
-UND Bottom-up (Tandems). Lassen Sie uns 100 Tandems als Forschungsprojekt starten. Evaluation
-nach 2 Jahren. Wissenschaftlich begleitet.""",
+            "Agent Ö": """Volkswirtschaftlich ist Agent FP's Ansatz interessant: Creative Destruction,
+neue Märkte, Wissensmonetarisierung. Aber ich sehe auch Risiken: Transaktionskosten, Koordinationsprobleme,
+Skalierungsfragen. Mein Vorschlag: Pilot mit 100-200 Tandems, begleitet von ökonomischer Evaluation.
+Messen wir Produktivitätseffekte, Spillovers, Wohlfahrtswirkung. Dann entscheiden wir datenbasiert.""",
 
             "Agent G": """Ich bleibe skeptisch. Sehr skeptisch. ABER: Wenn es FREIWILLIG ist, wenn es
 Rückkehrrechte gibt, wenn soziale Absicherung da ist - dann könnte ich einen PILOT akzeptieren.

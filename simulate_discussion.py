@@ -13,8 +13,8 @@ Basiert auf Dan Wang's "Gavel vs. Sledgehammer" These:
 
 Teilnehmer:
 - Moderator (Leit-Wissenschaftler)
-- Agent T (Technologe - Maschinenbau/VDMA)
-- Agent F (Forscherin - DFKI/Fraunhofer)
+- Agent TF (Technologieforscher - Maschinenbau/VDMA + Fraunhofer/DFKI)
+- Agent Ö (Ökonom - Volkswirtschaftliche Analyse)
 - Agent G (Gewerkschafter - DGB)
 - Agent P (Politikerin - BMWK/BMBF)
 - Agent FP (First Principles Dekonstrukteur - Externer Disruptor)
@@ -91,8 +91,8 @@ def print_banner():
 
     Teilnehmer:
     • Moderator (Leit-Wissenschaftler)
-    • Agent T - Der Technologe (Maschinenbau/VDMA)
-    • Agent F - Die Forscherin (DFKI/Fraunhofer)
+    • Agent TF - Der Technologieforscher (Maschinenbau/VDMA + Fraunhofer/DFKI)
+    • Agent Ö - Der Ökonom (Volkswirtschaftliche Analyse)
     • Agent G - Der Gewerkschafter (DGB)
     • Agent P - Die Politikerin (BMWK/BMBF)
     • Agent FP - Der First Principles Dekonstrukteur

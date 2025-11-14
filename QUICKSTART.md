@@ -45,8 +45,8 @@ Die Simulation erstellt eine Datei `protokoll_ki_strategie.txt` mit:
 | Agent | Rolle | Vertritt |
 |-------|-------|----------|
 | **Moderator** | Leit-Wissenschaftler | Objektive Moderation |
-| **Agent T** | Technologe | Maschinenbau, VDMA, Realwirtschaft |
-| **Agent F** | Forscherin | DFKI, Fraunhofer, Exzellenzforschung |
+| **Agent TF** | Technologieforscher | Maschinenbau, VDMA + Fraunhofer/DFKI |
+| **Agent Ö** | Ökonom | Volkswirtschaftliche Analyse, Wohlfahrt |
 | **Agent G** | Gewerkschafter | DGB, Arbeitnehmer |
 | **Agent P** | Politikerin | BMWK, BMBF, Bundesregierung |
 | **Agent FP** | Dekonstrukteur | Radikales Umdenken |

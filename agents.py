@@ -40,46 +40,52 @@ class Agent(ABC):
         self.conviction_level = max(0, min(100, self.conviction_level + delta_conviction))
 
 
-class AgentT(Agent):
-    """Agent T - Der Technologe (Pragmatiker, VDMA/Maschinenbau)"""
+class AgentTF(Agent):
+    """Agent TF - Der Technologieforscher (Pragmatiker + Forscher, VDMA/Maschinenbau + DFKI/Fraunhofer)"""
 
     def __init__(self):
         super().__init__(
-            name="Agent T",
-            role="Der Technologe",
-            perspective="Vertritt die Realwirtschaft und den Maschinenbau"
+            name="Agent TF",
+            role="Der Technologieforscher",
+            perspective="Vertritt Realwirtschaft, Maschinenbau und angewandte KI-Forschung"
         )
-        self.priorities = ["Edge Computing", "Fabrikhalle", "Datensouveränität", "Predictive Maintenance"]
+        self.priorities = ["Edge Computing", "Transfer Forschung→Praxis", "Datensouveränität", "Industrielle KI-Anwendungen"]
 
     def get_opening_statement(self) -> str:
-        return """Ich vertrete hier die Realwirtschaft - den Maschinenbau, die Automotive-Zulieferer,
-die mittelständischen Produktionsbetriebe. Und ich sage Ihnen ganz klar: Wir haben nicht
-das Luxusproblem der US-Tech-Konzerne, die mit LLMs Milliarden verdienen. Unser Problem
-ist viel konkreter und unmittelbarer.
+        return """Ich komme aus einer einzigartigen Position - ich habe sowohl in der industriellen
+Forschung (Fraunhofer, DFKI) als auch direkt mit der Realwirtschaft gearbeitet. Diese Brücke
+zwischen Theorie und Praxis gibt mir eine besondere Perspektive auf unser Problem.
 
-Während wir hier über 'Trusted AI' als Gütesiegel diskutieren, kaufen unsere Kunden
-bereits Rockwell-Systeme aus den USA oder Fanuc-Roboter aus Japan - die haben KI integriert,
-die funktioniert 'on the edge', in der Fabrikhalle, OHNE dass Daten in US-Clouds fließen müssen.
+Die GUTE NACHRICHT: Deutsche KI-Forschung ist absolut weltklasse. Wir publizieren in Nature,
+Science, auf Top-Konferenzen. Unsere Algorithmen für Computer Vision, Predictive Maintenance
+und digitale Zwillinge sind state-of-the-art.
 
-Wir brauchen keine philosophischen Debatten über KI-Ethik. Wir brauchen:
-- Computer Vision für Qualitätskontrolle, die bei 0.01mm Toleranz funktioniert
-- Predictive Maintenance, die Maschinenstillstand vorhersagt
-- Digitale Zwillinge für die Produktionsplanung
-- Alles dezentral, alles datensouverän, alles JETZT.
+Die SCHLECHTE NACHRICHT: Diese Exzellenz kommt NICHT in der Fabrikhalle an. Der Transfer-Graben
+ist tektonisch. Während wir forschen, kaufen Kunden bereits Rockwell-Systeme aus den USA oder
+Fanuc-Roboter aus Japan - die haben KI integriert, die FUNKTIONIERT 'on the edge', OHNE dass
+Daten in US-Clouds fließen müssen.
 
-Die Konkurrenz schläft nicht. Während unsere 'Gavel'-Regulierung - DSGVO, AI Act,
-Betriebsrat-Mitbestimmung - jeden Schritt um Monate verzögert, rollt Chinas 'Sledgehammer'
-den Markt auf. Wir verlieren JETZT Marktanteile."""
+Das Kernproblem: Wir haben ZWEI Welten, die nicht kommunizieren:
+- Die Forschungswelt: Brillante Papers, aber 3-5 Jahre bis zum Produkt
+- Die Industriewelt: Braucht Lösungen JETZT, ROI in 18 Monaten
+
+Und während wir diesen Transfer-Graben nicht überbrücken, macht uns die 'Gavel'-Regulierung
+(DSGVO, AI Act, Betriebsrat-Mitbestimmung) noch langsamer. Chinas 'Sledgehammer' rollt den
+Markt auf - mit angewandter KI, die vielleicht nicht perfekt ist, aber FUNKTIONIERT.
+
+Meine Forderung: Wir brauchen 'Applied Research' - Forschung, die vom ersten Tag an
+auf industrielle Anwendbarkeit ausgerichtet ist. Und wir brauchen sie SCHNELL."""
 
     def respond_to(self, speaker: str, statement: str, context: Dict) -> str:
         responses = {
-            "Agent F": [
-                """Mit Verlaub, Ihre Forschung ist brillant - aber sie kommt nicht in der Fabrik an!
-Ein mittelständischer Werkzeugmacher mit 150 Mitarbeitern kann nicht drei Jahre warten,
-bis aus Ihrem Gaia-X-Paper ein funktionierendes Produkt wird.""",
+            "Agent Ö": [
+                """Ihre volkswirtschaftlichen Modelle sind wichtig für die Makro-Ebene. Aber auf
+der Mikro-Ebene - in der einzelnen Fabrik - zählt nur: Funktioniert es? Ist der ROI da?
+Die schönste BIP-Prognose hilft dem Mittelständler nicht, wenn seine Maschine stillsteht!""",
 
-                """'Trusted AI als Gütesiegel' - wer soll das bezahlen? Der Mittelständler braucht ROI
-in 18 Monaten, nicht ein Qualitätssiegel, das seine Compliance-Kosten verdoppelt!"""
+                """Sie sprechen von Netzwerkeffekten und Wertschöpfungsketten - richtig! Aber WIE
+überzeugen wir die erste Firma, den ersten Schritt zu machen? Das ist ein Henne-Ei-Problem,
+das wir technologisch lösen müssen, nicht ökonomisch theoretisieren."""
             ],
             "Agent G": [
                 """Ich verstehe Ihre Sorgen um Arbeitsplätze. Aber wenn wir JETZT nicht automatisieren,
@@ -138,100 +144,111 @@ Industrieaufträge. Das ist nicht abstrakt - das sind konkrete Insolvenzen!"""
         return []
 
 
-class AgentF(Agent):
-    """Agent F - Die Forscherin (Visionärin, DFKI/Fraunhofer)"""
+class AgentÖ(Agent):
+    """Agent Ö - Der Ökonom (Volkswirtschaftler, analysiert makro-ökonomische Effekte)"""
 
     def __init__(self):
         super().__init__(
-            name="Agent F",
-            role="Die Forscherin",
-            perspective="Vertritt die Exzellenzforschung"
+            name="Agent Ö",
+            role="Der Ökonom",
+            perspective="Vertritt volkswirtschaftliche Analyse und Wohlfahrtsökonomie"
         )
-        self.priorities = ["Trusted AI", "Gaia-X", "Transfer", "Ethik"]
+        self.priorities = ["Produktivitätswachstum", "Wettbewerbsfähigkeit", "Netzwerkeffekte", "Wohlfahrt"]
 
     def get_opening_statement(self) -> str:
-        return """Ich möchte mit einer unbequemen Wahrheit beginnen: Deutsche KI-Forschung ist
-absolut weltklasse. Das DFKI, unsere Fraunhofer-Institute, die TU München - wir publizieren
-in Nature, Science, auf den Top-KI-Konferenzen. Unsere Forscher werden von Silicon Valley
-abgeworben. Das ist nicht das Problem.
+        return """Ich bringe eine volkswirtschaftliche Perspektive in diese Debatte. Während Sie
+über Technologie, Arbeitnehmer und Politik sprechen, möchte ich die MAKRO-ÖKONOMISCHEN
+Auswirkungen beleuchten - denn die sind dramatisch.
 
-Das Problem ist der Transfer. Der Graben zwischen unserer Forschung und dem Mittelstand
-ist tektonisch. Ein schwäbischer Mittelständler mit 200 Mitarbeitern kann keine Nature-Paper
-lesen und in Produktionscode übersetzen. Ihm fehlen Data Scientists, ML-Engineers,
-die Infrastruktur.
+Die ZAHLEN sind eindeutig:
 
-Deshalb ist unsere Strategie:
+1) PRODUKTIVITÄTSLÜCKE: Deutschland's Produktivitätswachstum stagniert seit 2005 bei ~0,5% p.a.
+   Die USA schaffen 1,2%, China 6%. KI könnte laut McKinsey 1-2% zusätzliches BIP-Wachstum
+   bringen - das sind 40-80 Milliarden Euro JÄHRLICH. Aber nur, wenn wir es NUTZEN.
 
-1) TRUSTED AI als deutsches Differenzierungsmerkmal: Während die USA 'move fast and break things'
-   machen und China soziale Kosten ignoriert, bieten WIR KI, die DSGVO-konform, erklärbar,
-   sicher und ethisch ist. Das ist unser 'Gavel' als STÄRKE, nicht Schwäche!
+2) WETTBEWERBSFÄHIGKEIT: Unser Exportmodell basiert auf 'Hidden Champions' - hochspezialisierte
+   Mittelständler. Wenn DIESE durch KI-Konkurrenz aus Asien/USA verdrängt werden, verlieren
+   wir nicht einzelne Firmen - wir verlieren ganze WERTSCHÖPFUNGSKETTEN. Das sind Netzwerkeffekte
+   mit Multiplikator 3-5x.
 
-2) GAIA-X und Catena-X als souveräne Datenräume: Wenn wir domänenspezifische KI wollen -
-   für Automotive, Maschinenbau, Chemie - brauchen wir einen sicheren Ort, wo Unternehmen
-   Daten teilen können, ohne sie an AWS zu verlieren.
+3) INVESTMENT GAP: Wir investieren 3,1% des BIP in F&E - gut. Aber davon fließt zu wenig
+   in KI-ANWENDUNG. Wir forschen, andere monetarisieren. Das ist ökonomisch ineffizient.
 
-3) TRANSFERZENTREN: Wir müssen die Übersetzung von Forschung zu Produkt institutionalisieren.
+4) WOHLFAHRTSEFFEKT: Hier wird es interessant - und kontrovers. Agent G hat Recht: Disruption
+   schafft soziale Kosten. Aber KEINE Disruption schafft AUCH Kosten - verlorene Jobs durch
+   Firmeninsolvenzen, sinkende Reallöhne durch Produktivitätsschwäche. Ökonomisch ist die
+   Frage: Welcher Pfad minimiert den GESAMT-Wohlfahrtsverlust?
 
-Ja, das ist langsamer als der chinesische 'Sledgehammer'. Aber es ist nachhaltig,
-sozial verträglich und passt zu unserem Wertesystem."""
+5) DAS 'GAVEL'-PARADOX: Regulierung (DSGVO, AI Act) schützt kurzfristig. Aber langfristig?
+   Wenn deutsche Firmen uncompetitive werden und Marktanteile verlieren, HILFT uns die
+   Regulierung nicht - wir haben dann 'ethische' Arbeitslosigkeit statt 'unethischer' Jobs.
+
+Meine These: KI-Adoption ist KEIN Nullsummenspiel. Es geht nicht um 'Kapital vs. Arbeit',
+sondern um 'Deutschland vs. Rest der Welt'. Wenn wir ALLE verlieren (Mittelstand UND
+Arbeitnehmer), hilft uns das Gavel-Korsett nichts."""
 
     def respond_to(self, speaker: str, statement: str, context: Dict) -> str:
         responses = {
-            "Agent T": [
-                """Ich verstehe Ihre Ungeduld. Aber 'schnell und kaputt' ist nicht die Lösung!
-Wenn Ihre Qualitätskontrolle-KI einen Fehler macht und ein defektes Bauteil in ein
-Flugzeug kommt - das ist nicht 'fail fast', das ist fahrlässig. Trusted AI schützt Sie!""",
+            "Agent TF": [
+                """Ihre Mikro-Sicht ist wichtig, aber unvollständig! Ein einzelner Mittelständler
+denkt in ROI - 18 Monate. Aber volkswirtschaftlich müssen wir in GENERATIONEN denken.
+Die Investition heute schafft Pfadabhängigkeiten für 30 Jahre!""",
 
-                """Gaia-X IST produktionsreif in Catena-X! BMW, Bosch, ZF nutzen es bereits.
-Das Problem ist nicht die Technologie - es ist die Adoption durch kleinere Player."""
+                """'Applied Research' - ja! Aber die ökonomische Frage ist: Wie allokieren wir knappe
+Ressourcen optimal? Markt oder Staat? Ihr Transferproblem ist eigentlich ein
+Koordinationsproblem - ein klassisches Marktversagen."""
             ],
             "Agent G": [
-                """Genau! Der 'Expert-in-the-Loop'-Ansatz ist wissenschaftlich fundiert. Studien zeigen:
-Mensch-KI-Teams sind leistungsfähiger als reine Automation. Das ist nicht Romantik,
-das ist evidenzbasiert.""",
+                """Ich teile Ihre Sorge um Menschen. Aber lassen Sie mich die Wohlfahrtsökonomie
+einbringen: Was ist sozial gerechter - 100.000 Facharbeiter verlieren Jobs durch KI-Automation,
+oder 500.000 verlieren Jobs, weil ihre Firmen pleite gehen? Beides ist schmerzhaft.""",
 
-                """KI-Qualifizierung ist zentral. Wir haben die Lehrpläne entwickelt - vom
-'KI-Trainer' bis zum 'KI-Manager'. Das Problem ist die Umsetzung in der Breite."""
+                """Ihr 'Expert-in-the-Loop' ist ökonomisch sinnvoll, WENN die Grenzproduktivität
+dadurch steigt. Aber wenn es nur die Automation verzögert und die Firma uncompetitive macht,
+ist es ein Pyrrhussieg - Sie retten den Job für 5 Jahre, dann ist die ganze Firma weg."""
             ],
             "Agent P": [
-                """Die 5 Milliarden sind gut angelegt! Sie finanzieren unsere Kompetenzzentren,
-die Applied-AI-Initiative, die KI-Parks. Rome wasn't built in a day.""",
+                """Die 5 Milliarden sind NICHTS im Vergleich zu dem, was auf dem Spiel steht!
+Zum Vergleich: Der Automotive-Sektor allein erwirtschaftet 400 Milliarden Euro Umsatz.
+Wenn der 10% verliert - 40 Milliarden - dann waren Ihre 5 Milliarden ein Tropfen.""",
 
-                """Der AI Act wird oft falsch verstanden. Er reguliert nur 'Hochrisiko-KI'.
-Für 90% der Anwendungen ist er irrelevant. Wir müssen besser kommunizieren."""
+                """Ihr Konsens-Ansatz ist politisch nachvollziehbar. Aber ökonomisch riskant!
+In Zeiten disruptiver Technologie ist der 'Goldene Mittelweg' oft der SCHLECHTESTE -
+Sie kommen zu spät UND zahlen zu viel. Das ist 'Stuck in the Middle'."""
             ],
             "Agent FP": [
-                """Sie dekonstruieren unser Modell - aber auf welcher Basis? 'First Principles'
-klingt gut, aber Sie ignorieren soziale Komplexität! Wissen lässt sich nicht einfach
-'abkoppeln' - es ist kontextgebunden!""",
+                """Endlich jemand, der Systemgrenzen hinterfragt! Ihre 'Meister-Forscher-Tandems'
+sind ökonomisch interessant: Sie schaffen einen NEUEN MARKT für implizites Wissen.
+Das ist Schumpeter'sche 'Creative Destruction'!""",
 
-                """Ihr 'Meister-Forscher-Tandem' - das ist methodisch interessant. Aber wer
-kuratiert die Qualität? Wer verhindert, dass wir 1000 inkompatible Insellösungen bekommen?"""
+                """Aber die volkswirtschaftliche Frage: Skaliert das? 1.000 Tandems sind ein
+Nischen-Experiment. Deutschland hat 3,5 Millionen Unternehmen. Wie gehen wir von
+0,03% Abdeckung auf systemische Relevanz?"""
             ]
         }
 
         if speaker in responses:
             return random.choice(responses[speaker])
-        return f"Zu {speaker}s Punkt: Wir dürfen die langfristige Perspektive nicht verlieren."
+        return f"Zu {speaker}: Wir müssen das volkswirtschaftlich durchrechnen - was sind die Kosten, was der Nutzen?"
 
     def get_arguments(self, phase: str) -> List[str]:
         if phase == "opening":
             return [
-                "Deutsche KI-Forschung ist weltweit führend",
-                "Transfer-Problem ist erkannt und wird adressiert",
-                "Trusted AI ist Wettbewerbsvorteil, nicht Hindernis"
+                "Produktivitätslücke kostet 40-80 Mrd. € BIP jährlich",
+                "Wertschöpfungsketten haben Netzwerkeffekte mit Multiplikator 3-5x",
+                "Investment Gap: Wir forschen, andere monetarisieren"
             ]
         elif phase == "conflict":
             return [
-                "Ethik und Geschwindigkeit sind kein Widerspruch",
-                "Gaia-X funktioniert in Catena-X bereits",
-                "Wir brauchen Geduld für nachhaltige Lösungen"
+                "Gavel-Paradox: Ethische Regulierung führt zu Marktanteilsverlust",
+                "Wohlfahrtsökonomie: Welcher Pfad minimiert Gesamt-Verlust?",
+                "Goldene Mitte ist bei Disruption oft der schlechteste Weg"
             ]
         elif phase == "radical":
             return [
-                "Radikale Experimente sind im Forschungskontext willkommen",
-                "Wir sollten 'Regulatory Sandboxes' für FP's Ansatz prüfen",
-                "Aber: Qualitätssicherung muss gewährleistet bleiben"
+                "FP's Tandems schaffen neuen Markt für implizites Wissen",
+                "Aber: Skalierungsproblem von 0,03% auf systemische Relevanz",
+                "Creative Destruction braucht 'Stabilitätsanker' für Übergang"
             ]
         return []
 
@@ -252,15 +269,14 @@ class AgentG(Agent):
 Wettbewerb. Ich rede über MENSCHEN.
 
 Die Wahrheit, die in dieser Debatte oft vergessen wird: Das deutsche 'Prozess-Know-how',
-das Agent T zu Recht als unsere Stärke bezeichnet, steckt nicht in Maschinen. Es steckt
+das Agent TF zu Recht als unsere Stärke bezeichnet, steckt nicht in Maschinen. Es steckt
 in den Köpfen und Händen von 1,3 Millionen Facharbeitern - Meister, Techniker, Ingenieure.
 
 Ein schwäbischer Werkzeugmacher weiß durch ERFAHRUNG, welche Materialspannung bei welcher
 Temperatur entsteht. Das steht in keinem Paper. Das ist implizites Wissen, erworben über
 Jahre, oft Jahrzehnte.
 
-Wenn Sie jetzt - wie Agent T vorschlägt - einen 'Sledgehammer' schwingen und 'schnell
-automatisieren', passiert folgendes:
+Wenn Sie jetzt einen 'Sledgehammer' schwingen und 'schnell automatisieren', passiert folgendes:
 
 1) Sie zerstören dieses Wissen, weil die Träger entlassen oder marginalisiert werden
 2) Sie schaffen massive soziale Verwerfungen - der Rust Belt in den USA ist eine Warnung!
@@ -279,21 +295,23 @@ Das mag langsamer sein. Aber es ist RICHTIG. Und langfristig stabiler."""
 
     def respond_to(self, speaker: str, statement: str, context: Dict) -> str:
         responses = {
-            "Agent T": [
-                """Sie sagen 'der Markt wartet nicht' - aber die Menschen auch nicht! Wenn Sie
-ganze Abteilungen automatisieren, radikalisieren Sie diese Menschen politisch.
-Schauen Sie nach Ostdeutschland, schauen Sie nach Großbritannien. Das ist Zündstoff!""",
+            "Agent TF": [
+                """Sie sprechen von Forschung UND Praxis - gut! Aber in der Praxis bedeutet
+'schnelle Automatisierung' oft: Facharbeiter werden überflüssig. Das ist politischer
+und sozialer Sprengstoff!""",
 
-                """ROI in 18 Monaten - auf wessen Kosten? Sie externalisieren die sozialen Kosten.
-Die Arbeitslosigkeit, die Umschulung, die psychischen Folgen - das zahlt die Gesellschaft.
-Das ist nicht effizient, das ist Raubbau!"""
+                """'Applied Research' klingt gut - aber WER entscheidet, ob eine Anwendung
+den Arbeiter ersetzt oder unterstützt? Ohne Mitbestimmung haben wir keine Kontrolle
+über diese fundamentale Frage!"""
             ],
-            "Agent F": [
-                """Endlich jemand, der den 'Expert-in-the-Loop' ernst nimmt! Ihre Forschung zu
-Mensch-KI-Kollaboration ist der richtige Weg. Wir müssen das skalieren.""",
+            "Agent Ö": [
+                """Ihre Wohlfahrtsökonomie klingt kalt: '100.000 vs. 500.000 Jobs'. Das sind
+MENSCHEN, keine Variablen! Und Ihre Annahme ist falsch: Mit starker Mitbestimmung
+UND Innovation können wir beides retten - das zeigt die Historie!""",
 
-                """Die KI-Qualifizierung - haben Sie die 50-jährigen Facharbeiter im Blick?
-Die haben keine Uni-Ausbildung. Ihre Lehrpläne müssen PRAXISNAH sein, nicht akademisch."""
+                """Grenzproduktivität, Pfadabhängigkeit - schön und gut. Aber haben Sie die
+VERTEILUNGSFRAGE bedacht? Wenn KI die Produktivität um 50% steigert, wer profitiert?
+Die Eigentümer oder die Arbeiter? Das entscheidet die Sozialordnung!"""
             ],
             "Agent P": [
                 """Die 5 Milliarden - ein Teil davon muss in Qualifizierung fließen! Nicht nur in
@@ -363,8 +381,8 @@ Der Bundeshaushalt hat 5 Milliarden Euro für KI bereitgestellt. Wir haben:
 - Uns bei Gaia-X engagiert
 
 Trotzdem höre ich von allen Seiten Kritik:
-- Agent T sagt: 'Zu langsam, zu akademisch'
-- Agent F sagt: 'Mehr Geld für Forschung'
+- Agent TF sagt: 'Zu langsam, Transfer funktioniert nicht'
+- Agent Ö sagt: 'Die volkswirtschaftlichen Kosten sind zu hoch'
 - Agent G sagt: 'Mehr Geld für Qualifizierung'
 
 Die Realität ist: Wir haben ein föderales System mit 16 Bundesländern. Wir haben die
@@ -388,24 +406,26 @@ bekomme, ist wertlos."""
 
     def respond_to(self, speaker: str, statement: str, context: Dict) -> str:
         responses = {
-            "Agent T": [
-                """Ich höre Ihre Frustration. Aber wenn ich MORGEN verkünde 'Wir ignorieren DSGVO
-für Industrie-KI' - das ist rechtlich nicht möglich, und die Klageflut würde alles blockieren.""",
+            "Agent TF": [
+                """Ich höre Ihre Frustration über den Transfer-Graben. Aber nennen Sie mir
+eine KONKRETE Alternative, die ich NÄCHSTE Woche umsetzen kann und die durch
+Bundestag und Bundesrat kommt!""",
 
-                """Die Transferzentren sind nicht perfekt, da stimme ich zu. Aber nennen Sie mir
-eine KONKRETE Alternative, die ich NÄCHSTE Woche umsetzen kann."""
+                """'Applied Research' - ja, gute Idee! Aber wie finanziere ich das? Die
+Forschungslobby will Grundlagenforschung, die Industrie will Subventionen. Wo
+nehme ich das Geld für Ihre Applied Research her?"""
             ],
-            "Agent F": [
-                """Ihre Forschung hat unsere volle Unterstützung. Aber ich muss auch Agent T's
-Kritik ernst nehmen: Wie verkürzen wir den Transfer? Können wir Anreize für
-'Applied Research' schaffen?""",
+            "Agent Ö": [
+                """Ihre volkswirtschaftlichen Modelle sind einleuchtend - 40-80 Mrd. BIP-Verlust
+pro Jahr. Aber wie verkaufe ich das dem Wähler? 'Disruption heute für Wohlstand morgen'?
+Das ist politisch schwer vermittelbar!""",
 
-                """Trusted AI ist ein starkes Narrativ für die Öffentlichkeit. Aber ehrlich:
-Gewinnen wir damit Marktanteile? Oder ist es primär ein politisches Beruhigungsmittel?"""
+                """Sie sagen 'Goldene Mitte ist der schlechteste Weg'. Aber in einer Koalition
+MIT der SPD ist die Goldene Mitte oft der EINZIG mögliche Weg! Das ist Realpolitik!"""
             ],
             "Agent G": [
                 """Die Qualifizierungsoffensive ist eingeplant - 500 Millionen im Haushalt 2025.
-Aber: Das ist ein Marathon, kein Sprint. Agent T's Unternehmen haben nicht 5 Jahre Zeit.""",
+Aber: Das ist ein Marathon, kein Sprint. Die Unternehmen haben nicht 5 Jahre Zeit.""",
 
                 """Mitbestimmung ist nicht verhandelbar - das ist Koalitionsbedingung mit der SPD.
 Aber: Können wir SCHNELLERE Mitbestimmungsverfahren für KI-Projekte schaffen?"""
@@ -486,8 +506,8 @@ WAHRHEIT 3: KI braucht DATEN. Sie braucht Trainingsdaten aus Produktionsprozesse
 Diese Daten sind in Fabriken, hinter Firewalls.
 
 WAHRHEIT 4: Der Mittelständler ist RISIKOSCHEU und der Eigentümer ist das NADELÖHR
-für Adoption. Agent T repräsentiert die Industrie, aber er ist nicht die Masse der
-50-jährigen Geschäftsführer, die Veränderung fürchten.
+für Adoption. Agent TF kennt die Industrie, aber auch er weiß: Die Masse der
+50-jährigen Geschäftsführer fürchtet Veränderung.
 
 Das sind die Wahrheiten. Alles andere - Gaia-X, AI Act, Betriebsräte - sind
 KONVENTIONEN. Lösungen auf Basis alter Systeme.
@@ -499,15 +519,15 @@ Nächster Schritt: Welche Ihrer ANNAHMEN sind eigentlich falsch?"""
         self.phase = 2
         return """PHASE 2: Lassen Sie mich Ihre Grundannahmen in Frage stellen.
 
-ANNAHME 1 (Agent T): "Der Mittelständler muss der Vektor der Transformation sein."
+ANNAHME 1 (Agent TF): "Der Mittelständler muss der Vektor der Transformation sein."
 FRAGE: Warum? Wenn er risikoscheu ist, wenn er blockiert - warum akzeptieren wir
 das als Konstante? Warum gehen wir nicht um ihn herum?
 
-ANNAHME 2 (Agent F): "Trusted AI muss ein Verkaufsargument sein."
+ANNAHME 2 (Konventionelle Sicht): "Trusted AI muss ein Verkaufsargument sein."
 FRAGE: Für wen? Ein US-Kunde kauft das günstigste Produkt. Ein chinesischer erst recht.
 'Trusted AI' ist ein Gütesiegel für EUROPA. Ist das relevant für globale Märkte?
 
-ANNAHME 3 (Agent F): "Gaia-X muss die Antwort auf Datenteilen sein."
+ANNAHME 3 (Konventionelle Sicht): "Gaia-X muss die Antwort auf Datenteilen sein."
 FRAGE: Warum so komplex? Warum brauchen wir einen EU-weiten Datenraum, wenn das
 Wissen LOKAL in einzelnen Fabriken steckt? Warum nicht 1000 kleine Lösungen statt
 einer großen, die nie fertig wird?
@@ -545,7 +565,7 @@ Wie sieht das konkret aus?
 1) Der FACHARBEITER besitzt sein implizites Wissen. Es ist SEIN Asset, nicht das
    des Arbeitgebers. (Radikal, aber rechtlich: Gedanken sind frei.)
 
-2) Der FORSCHER (Agent F's Welt) hat KI-Werkzeuge, aber keine Daten.
+2) Der FORSCHER (Agent TF kennt diese Welt) hat KI-Werkzeuge, aber keine Daten.
 
 3) Wir schaffen MEISTER-FORSCHER-TANDEMS:
    - Ein Meister mit 20 Jahren Prozess-Wissen
@@ -589,7 +609,7 @@ RECHTLICHER RAHMEN:
 - ODER: Er kündigt (freiwillig!) und wird Vollzeit-Gründer
 - Soziale Absicherung: 3 Jahre Rückkehrrecht zum alten Arbeitgeber (Agent G's Punkt)
 
-QUALITÄTSSICHERUNG (Agent F's Sorge):
+QUALITÄTSSICHERUNG (wichtig für Forschungsseite):
 - Zertifizierung durch Fraunhofer/TÜV bevor App in den Store kommt
 - Open-Source-Modelle bevorzugt - Community-Review
 - Haftung liegt bei der Tandem-GmbH (wie bei jeder Software)

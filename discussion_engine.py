@@ -175,6 +175,62 @@ class DiscussionEngine:
         self.discussion_log: List[Tuple[str, str]] = []
         self.phase = "opening"
 
+    def _calculate_rounds(self, target_duration_minutes: int) -> Dict:
+        """
+        Berechnet Diskussionsparameter basierend auf Zieldauer
+
+        Args:
+            target_duration_minutes: Gewünschte Dauer in Minuten
+
+        Returns:
+            Dictionary mit rounds, interactions und reactions
+        """
+        if target_duration_minutes < 10:
+            # Kurze Diskussion (~40-50 Beiträge)
+            return {
+                "initial_rounds": 2,
+                "initial_interactions": 3,
+                "fp_reactions_1": 2,
+                "fp_reactions_2": 2,
+                "fp_reactions_3": 3,
+                "final_rounds": 1,
+                "final_interactions": 3
+            }
+        elif target_duration_minutes < 25:
+            # Standard Diskussion (~60-70 Beiträge)
+            return {
+                "initial_rounds": 3,
+                "initial_interactions": 4,
+                "fp_reactions_1": 4,
+                "fp_reactions_2": 4,
+                "fp_reactions_3": 5,
+                "final_rounds": 2,
+                "final_interactions": 5
+            }
+        elif target_duration_minutes < 40:
+            # Lange Diskussion (~100-120 Beiträge)
+            return {
+                "initial_rounds": 5,
+                "initial_interactions": 5,
+                "fp_reactions_1": 5,
+                "fp_reactions_2": 5,
+                "fp_reactions_3": 6,
+                "final_rounds": 3,
+                "final_interactions": 6
+            }
+        else:
+            # Sehr lange Diskussion (~150-200 Beiträge)
+            return {
+                "initial_rounds": 7,
+                "initial_interactions": 6,
+                "fp_reactions_1": 6,
+                "fp_reactions_2": 6,
+                "fp_reactions_3": 8,
+                "final_rounds": 5,
+                "final_interactions": 7
+            }
+
+
     def log(self, speaker: str, statement: str):
         """Protokolliert einen Diskussionsbeitrag"""
         self.discussion_log.append((speaker, statement))
@@ -200,7 +256,19 @@ class DiscussionEngine:
         Returns:
             Vollständiges Protokoll als String
         """
+        # Berechne Parameter basierend auf Zieldauer
+        params = self._calculate_rounds(target_duration_minutes)
+
         print(f"\n🚀 Starte KI-Strategie-Simulation (Zieldauer: {target_duration_minutes} Minuten)...")
+        print(f"📊 Diskussionsumfang: ", end="")
+        if target_duration_minutes < 10:
+            print("Kurz (~40-50 Beiträge)")
+        elif target_duration_minutes < 25:
+            print("Standard (~60-70 Beiträge)")
+        elif target_duration_minutes < 40:
+            print("Lang (~100-120 Beiträge)")
+        else:
+            print("Sehr lang (~150-200 Beiträge)")
         print("=" * 80)
 
         start_time = time.time()
@@ -219,8 +287,11 @@ class DiscussionEngine:
         self.log("MODERATOR", self.moderator.transition_to_conflict())
         self.phase = "conflict"
 
-        # Mehrere Runden von Antworten/Reaktionen
-        self._run_discussion_rounds(rounds=3, interactions_per_round=4)
+        # Mehrere Runden von Antworten/Reaktionen (dynamisch skaliert)
+        self._run_discussion_rounds(
+            rounds=params["initial_rounds"],
+            interactions_per_round=params["initial_interactions"]
+        )
 
         # PHASE 4: Agent FP Einführung
         self.log("MODERATOR", self.moderator.introduce_fp())
@@ -228,29 +299,32 @@ class DiscussionEngine:
         # Agent FP's Dekonstruktion - Phase für Phase
         agent_fp = self.agents[-1]
 
-        # Phase 1: Fundamentale Wahrheiten
+        # Phase 1: Fundamentale Wahrheiten (dynamisch skaliert)
         self.log(agent_fp.name, agent_fp.get_deconstruction_phase1())
-        self._get_reactions_to_fp(phase=1, num_reactions=4)
+        self._get_reactions_to_fp(phase=1, num_reactions=params["fp_reactions_1"])
 
-        # Phase 2: Annahmen-Check
+        # Phase 2: Annahmen-Check (dynamisch skaliert)
         time.sleep(0.5)
         self.log(agent_fp.name, agent_fp.get_deconstruction_phase2())
-        self._get_reactions_to_fp(phase=2, num_reactions=4)
+        self._get_reactions_to_fp(phase=2, num_reactions=params["fp_reactions_2"])
 
-        # Phase 3: Neuaufbau
+        # Phase 3: Neuaufbau (dynamisch skaliert)
         time.sleep(0.5)
         self.log(agent_fp.name, agent_fp.get_deconstruction_phase3())
-        self._get_reactions_to_fp(phase=3, num_reactions=5)
+        self._get_reactions_to_fp(phase=3, num_reactions=params["fp_reactions_3"])
 
         # Phase 4: Implementierung
         time.sleep(0.5)
         reactions = self._collect_recent_reactions()
         self.log(agent_fp.name, agent_fp.get_deconstruction_phase4(reactions))
 
-        # PHASE 5: Finale Diskussion
+        # PHASE 5: Finale Diskussion (dynamisch skaliert)
         self.log("MODERATOR", self.moderator.challenge_agents("radical"))
         self.phase = "radical"
-        self._run_discussion_rounds(rounds=2, interactions_per_round=5)
+        self._run_discussion_rounds(
+            rounds=params["final_rounds"],
+            interactions_per_round=params["final_interactions"]
+        )
 
         # PHASE 6: Synthese
         self.log("MODERATOR", self.moderator.challenge_agents("synthesis"))

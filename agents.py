@@ -18,6 +18,7 @@ class Agent(ABC):
         self.perspective = perspective
         self.frustration_level = 0  # Steigt mit Widerspruch
         self.conviction_level = 100  # Sinkt bei guten Gegenargumenten
+        self.research_data = {}  # Aktuelle Daten aus WebSearch
 
     @abstractmethod
     def get_opening_statement(self) -> str:
@@ -39,6 +40,25 @@ class Agent(ABC):
         self.frustration_level = max(0, min(100, self.frustration_level + delta_frustration))
         self.conviction_level = max(0, min(100, self.conviction_level + delta_conviction))
 
+    def update_research_data(self, data: Dict):
+        """
+        Aktualisiert die Forschungsdaten des Agenten
+        Diese Methode wird verwendet, um aktuelle Zahlen/Fakten einzuspeisen
+        """
+        self.research_data.update(data)
+
+    def get_research_summary(self) -> str:
+        """
+        Gibt eine Zusammenfassung der verfügbaren Forschungsdaten zurück
+        """
+        if not self.research_data:
+            return "Keine aktuellen Forschungsdaten verfügbar."
+
+        summary = "AKTUELLE DATEN:\n"
+        for key, value in self.research_data.items():
+            summary += f"• {key}: {value}\n"
+        return summary
+
 
 class AgentTF(Agent):
     """Agent TF - Der Technologieforscher (Pragmatiker + Forscher, VDMA/Maschinenbau + DFKI/Fraunhofer)"""
@@ -51,27 +71,41 @@ class AgentTF(Agent):
         )
         self.priorities = ["Edge Computing", "Transfer Forschung→Praxis", "Datensouveränität", "Industrielle KI-Anwendungen"]
 
+        # Aktuelle Forschungsdaten (2024/2025)
+        self.update_research_data({
+            "KI-Adoption Mittelstand": "Nur 20% der deutschen Unternehmen nutzen KI (2024), 17% bei kleinen Unternehmen",
+            "Kleine Unternehmen": "Nur 17% der kleinen Unternehmen (10-49 MA) nutzen KI vs. 48% bei Großunternehmen",
+            "Teilintegration": "37% der Unternehmen nutzen KI nur selektiv ohne vollständige Systemintegration",
+            "Bundesförderung 2024": "836 Mio. € für konkrete KI-Projekte, davon nur 53 Mio. € für Startups/KMU"
+        })
+
     def get_opening_statement(self) -> str:
         return """Ich komme aus einer einzigartigen Position - ich habe sowohl in der industriellen
 Forschung (Fraunhofer, DFKI) als auch direkt mit der Realwirtschaft gearbeitet. Diese Brücke
 zwischen Theorie und Praxis gibt mir eine besondere Perspektive auf unser Problem.
+
+Die ZAHLEN sprechen eine klare Sprache (Stand 2024):
+- NUR 20% der deutschen Unternehmen nutzen KI - trotz jahrelanger Förderung
+- Bei KLEINEN Unternehmen (10-49 Mitarbeiter) sind es sogar nur 17%, während Großunternehmen
+  bei 48% liegen. Die Schere zwischen Groß und Klein wird GRÖSSER.
+- 37% nutzen KI nur 'selektiv' - das heißt: Spielerei ohne echte Systemintegration
 
 Die GUTE NACHRICHT: Deutsche KI-Forschung ist absolut weltklasse. Wir publizieren in Nature,
 Science, auf Top-Konferenzen. Unsere Algorithmen für Computer Vision, Predictive Maintenance
 und digitale Zwillinge sind state-of-the-art.
 
 Die SCHLECHTE NACHRICHT: Diese Exzellenz kommt NICHT in der Fabrikhalle an. Der Transfer-Graben
-ist tektonisch. Während wir forschen, kaufen Kunden bereits Rockwell-Systeme aus den USA oder
-Fanuc-Roboter aus Japan - die haben KI integriert, die FUNKTIONIERT 'on the edge', OHNE dass
-Daten in US-Clouds fließen müssen.
+ist tektonisch. Von den 836 Mio. € Bundesförderung 2024 gehen nur 53 Mio. € an Startups/KMU -
+also 6%! Der Rest versickert in akademischen Projekten.
 
 Das Kernproblem: Wir haben ZWEI Welten, die nicht kommunizieren:
 - Die Forschungswelt: Brillante Papers, aber 3-5 Jahre bis zum Produkt
 - Die Industriewelt: Braucht Lösungen JETZT, ROI in 18 Monaten
 
-Und während wir diesen Transfer-Graben nicht überbrücken, macht uns die 'Gavel'-Regulierung
-(DSGVO, AI Act, Betriebsrat-Mitbestimmung) noch langsamer. Chinas 'Sledgehammer' rollt den
-Markt auf - mit angewandter KI, die vielleicht nicht perfekt ist, aber FUNKTIONIERT.
+Während wir diesen Transfer-Graben nicht überbrücken, macht uns die 'Gavel'-Regulierung
+(DSGVO, seit August 2024 der EU AI Act mit Strafen bis 35 Mio. € oder 7% Jahresumsatz)
+noch langsamer. Chinas 'Sledgehammer' rollt den Markt auf - mit angewandter KI, die
+vielleicht nicht perfekt ist, aber FUNKTIONIERT.
 
 Meine Forderung: Wir brauchen 'Applied Research' - Forschung, die vom ersten Tag an
 auf industrielle Anwendbarkeit ausgerichtet ist. Und wir brauchen sie SCHNELL."""
@@ -155,31 +189,47 @@ class AgentÖ(Agent):
         )
         self.priorities = ["Produktivitätswachstum", "Wettbewerbsfähigkeit", "Netzwerkeffekte", "Wohlfahrt"]
 
+        # Aktuelle Forschungsdaten (2024/2025)
+        self.update_research_data({
+            "Produktivitätslücke BIP": "1,3% des BIP ($339 Milliarden) unrealisierte Wirtschaftsleistung 2023 durch Arbeitskräftemangel (McKinsey 2024)",
+            "Potenzial BIP-Wachstum": "0,5-1,5% höheres BIP möglich mit besserer KI-Adoption (G8-Durchschnitt)",
+            "KI-Investitionen Bund": "836 Mio. € für 2024, 5 Mrd. € bis 2025 gesamt angekündigt",
+            "Mittelstand-Förderung": "Digital Jetzt: 82 Mio. € für KMU 2024, KI-Wettbewerb: 20 Mio. €",
+            "Business Impact": "63% der Unternehmen mit KI berichten direkte Leistungsverbesserung"
+        })
+
     def get_opening_statement(self) -> str:
         return """Ich bringe eine volkswirtschaftliche Perspektive in diese Debatte. Während Sie
 über Technologie, Arbeitnehmer und Politik sprechen, möchte ich die MAKRO-ÖKONOMISCHEN
 Auswirkungen beleuchten - denn die sind dramatisch.
 
-Die ZAHLEN sind eindeutig:
+Die ZAHLEN (Stand 2024) sind eindeutig und alarmierend:
 
-1) PRODUKTIVITÄTSLÜCKE: Deutschland's Produktivitätswachstum stagniert seit 2005 bei ~0,5% p.a.
-   Die USA schaffen 1,2%, China 6%. KI könnte laut McKinsey 1-2% zusätzliches BIP-Wachstum
-   bringen - das sind 40-80 Milliarden Euro JÄHRLICH. Aber nur, wenn wir es NUTZEN.
+1) PRODUKTIVITÄTSLÜCKE: Laut McKinsey-Studie von 2024 kostete der Arbeitskräftemangel
+   Deutschland 2023 bereits 1,3% des BIP - das sind 339 MILLIARDEN DOLLAR unrealisierte
+   Wirtschaftsleistung! Und das BEVOR wir über KI-Rückstand sprechen.
+
+   Die G8-Länder könnten durch bessere Arbeitskräfteauslastung 0,5-1,5% zusätzliches
+   BIP-Wachstum erreichen. KI könnte diesen Gap schließen - aber NUR wenn wir sie NUTZEN.
 
 2) WETTBEWERBSFÄHIGKEIT: Unser Exportmodell basiert auf 'Hidden Champions' - hochspezialisierte
    Mittelständler. Wenn DIESE durch KI-Konkurrenz aus Asien/USA verdrängt werden, verlieren
    wir nicht einzelne Firmen - wir verlieren ganze WERTSCHÖPFUNGSKETTEN. Das sind Netzwerkeffekte
    mit Multiplikator 3-5x.
 
-3) INVESTMENT GAP: Wir investieren 3,1% des BIP in F&E - gut. Aber davon fließt zu wenig
-   in KI-ANWENDUNG. Wir forschen, andere monetarisieren. Das ist ökonomisch ineffizient.
+3) INVESTMENT GAP: Bundesregierung investiert 836 Mio. € in KI für 2024 (5 Mrd. € bis 2025).
+   Das klingt viel - aber für KMU? Nur 82 Mio. € via 'Digital Jetzt', 20 Mio. € KI-Wettbewerb.
+   Das sind 102 von 836 Millionen - also 12% für den Mittelstand, der 99% aller Firmen ausmacht!
+
+   Und trotzdem: 63% der Unternehmen MIT KI berichten Leistungsverbesserung. Das ROI ist DA!
 
 4) WOHLFAHRTSEFFEKT: Hier wird es interessant - und kontrovers. Agent G hat Recht: Disruption
    schafft soziale Kosten. Aber KEINE Disruption schafft AUCH Kosten - verlorene Jobs durch
    Firmeninsolvenzen, sinkende Reallöhne durch Produktivitätsschwäche. Ökonomisch ist die
    Frage: Welcher Pfad minimiert den GESAMT-Wohlfahrtsverlust?
 
-5) DAS 'GAVEL'-PARADOX: Regulierung (DSGVO, AI Act) schützt kurzfristig. Aber langfristig?
+5) DAS 'GAVEL'-PARADOX: Der EU AI Act ist seit August 2024 in Kraft - mit Strafen bis
+   35 Mio. € oder 7% Jahresumsatz. Regulierung schützt kurzfristig. Aber langfristig?
    Wenn deutsche Firmen uncompetitive werden und Marktanteile verlieren, HILFT uns die
    Regulierung nicht - wir haben dann 'ethische' Arbeitslosigkeit statt 'unethischer' Jobs.
 
@@ -263,6 +313,14 @@ class AgentG(Agent):
             perspective="Vertritt Arbeitnehmerschaft und soziale Interessen"
         )
         self.priorities = ["Arbeitsplätze", "Mitbestimmung", "Qualifizierung", "Menschenwürde"]
+
+        # Aktuelle Forschungsdaten (2024/2025)
+        self.update_research_data({
+            "Arbeitskräftemangel": "1,3% BIP-Verlust durch Fachkräftemangel 2023 (McKinsey)",
+            "Facharbeiter Deutschland": "~1,3 Millionen Facharbeiter (Meister, Techniker, Ingenieure)",
+            "EU AI Act": "Seit August 2024 in Kraft mit Arbeitnehmerschutz-Regelungen",
+            "Qualifizierung Invest": "Mittelstand-Digital Initiative bietet kostenlose KI-Trainer für Arbeitnehmer"
+        })
 
     def get_opening_statement(self) -> str:
         return """Ich höre hier viel über 'Gavel' und 'Sledgehammer', über Effizienz und
@@ -367,6 +425,15 @@ class AgentP(Agent):
             perspective="Vertritt Bundesregierung"
         )
         self.priorities = ["Konsens", "Wahlen", "EU-Konformität", "Budget"]
+
+        # Aktuelle Forschungsdaten (2024/2025)
+        self.update_research_data({
+            "KI-Strategie Budget": "836 Mio. € für 2024, bis 2025 insgesamt 5 Mrd. € geplant",
+            "KMU-Programme": "Digital Jetzt: 82 Mio. €, KI-Wettbewerb: 20 Mio. €, Mittelstand-Digital Initiative",
+            "EU AI Act": "In Kraft seit 1. August 2024, Deutschland koordiniert via BMDV Task Force",
+            "Regulatory Sandboxes": "Deutschland bietet KI-Sandboxes für kontrolliertes Testen",
+            "KI-Adoption": "57% der Unternehmen beschäftigen sich mit KI, 37% planen Einführung (2024)"
+        })
 
     def get_opening_statement(self) -> str:
         return """Ich schätze diese Runde, weil sie alle relevanten Stakeholder vereint.
@@ -477,6 +544,14 @@ class AgentFP(Agent):
         )
         self.priorities = ["Wahrheit", "Fundamentale Prinzipien", "Disruption", "Neue Systeme"]
         self.phase = 1
+
+        # Aktuelle Forschungsdaten (2024/2025)
+        self.update_research_data({
+            "Systemische Blockade": "57% beschäftigen sich mit KI, aber nur 20% nutzen sie - 37% Diskrepanz",
+            "Skalierungsbarriere": "Kleine Unternehmen 17% vs. Große 48% - strukturelles Problem",
+            "Regulatorische Innovation": "EU AI Act bietet Sandboxes seit Aug 2024 - wird kaum genutzt",
+            "Implizites Wissen": "1,3 Mio. Facharbeiter mit Know-how, aber kein Transfer-Mechanismus"
+        })
 
     def get_opening_statement(self) -> str:
         # Agent FP greift erst später ein

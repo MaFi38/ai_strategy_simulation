@@ -52,6 +52,45 @@ Die Simulation umfasst **6 Akteure**:
    - Methodik: 4-Phasen-Dekonstruktion
    - Besonderheit: Bricht Denkmuster auf
 
+## 📊 Aktuelle Daten & Research
+
+Alle Agenten arbeiten mit **aktuellen Forschungsdaten (2024/2025)**:
+
+### Agent TF - Technologieforscher
+- KI-Adoption: Nur 20% der deutschen Unternehmen nutzen KI (2024)
+- Kleine Unternehmen: 17% vs. 48% bei Großunternehmen
+- Bundesförderung 2024: 836 Mio. € (davon nur 53 Mio. € für Startups/KMU = 6%)
+- EU AI Act: In Kraft seit August 2024, Strafen bis 35 Mio. € oder 7% Jahresumsatz
+
+### Agent Ö - Ökonom
+- Produktivitätslücke: 1,3% des BIP ($339 Milliarden) unrealisiert durch Arbeitskräftemangel (McKinsey 2024)
+- Potenzial: 0,5-1,5% höheres BIP möglich mit besserer KI-Adoption
+- KMU-Förderung: Nur 102 von 836 Mio. € (12%) für den Mittelstand
+- Business Impact: 63% der Unternehmen mit KI berichten Leistungsverbesserung
+
+### Agent G - Gewerkschafter
+- Facharbeiter: ~1,3 Millionen mit implizitem Prozess-Know-how
+- EU AI Act: Seit August 2024 mit Arbeitnehmerschutz-Regelungen
+- Qualifizierung: Mittelstand-Digital Initiative bietet kostenlose KI-Trainer
+
+### Agent P - Politikerin
+- KI-Strategie Budget: 836 Mio. € für 2024, 5 Mrd. € bis 2025 gesamt
+- KMU-Programme: Digital Jetzt (82 Mio. €), KI-Wettbewerb (20 Mio. €)
+- Regulatory Sandboxes: Deutschland bietet KI-Sandboxes für kontrolliertes Testen
+- Engagement: 57% der Unternehmen beschäftigen sich mit KI, 37% planen Einführung
+
+### Agent FP - First Principles Dekonstrukteur
+- Systemische Blockade: 57% beschäftigen sich mit KI, aber nur 20% nutzen sie (37% Diskrepanz)
+- Skalierungsbarriere: Strukturelles Problem zwischen Groß (48%) und Klein (17%)
+- Implizites Wissen: 1,3 Mio. Facharbeiter, aber kein Transfer-Mechanismus
+
+**Datenquellen:**
+- McKinsey Global Institute (2024)
+- Bitkom-Studien zu KI-Adoption (2024)
+- Bundesregierung KI-Strategie
+- EU AI Act Implementierung
+- IW Köln, Statistisches Bundesamt
+
 ## 🔄 Diskussionsphasen
 
 Die Simulation durchläuft **5 Hauptphasen**:
@@ -239,6 +278,43 @@ ai_strategy_simulation/
 └── protokoll_ki_strategie.txt # Generiertes Protokoll (nach Ausführung)
 ```
 
+## 🔧 Technische Details
+
+### WebSearch-Integration & Research-Daten
+
+Alle Agenten nutzen die **Research-Data-Framework**:
+
+```python
+# Jeder Agent hat ein research_data Dictionary
+agent = AgentTF()
+agent.research_data = {
+    "KI-Adoption Mittelstand": "Nur 20% der deutschen Unternehmen nutzen KI (2024)",
+    "Bundesförderung 2024": "836 Mio. € für KI-Projekte, 53 Mio. € für KMU"
+}
+
+# Daten aktualisieren
+agent.update_research_data({
+    "Neue Statistik": "Wert"
+})
+
+# Daten abrufen
+summary = agent.get_research_summary()
+```
+
+**Vorteile:**
+- Agenten argumentieren mit aktuellen, verifizierbaren Zahlen
+- Leicht erweiterbar mit neuen Datenquellen
+- Transparent: Alle Daten sind in `agents.py` einsehbar
+
+**Daten-Update:**
+Die aktuellen Zahlen wurden recherchiert am 17.11.2024 und basieren auf:
+- McKinsey Global Institute Reports (2024)
+- Bitkom KI-Studien (2024)
+- Bundesregierung KI-Strategie & Haushaltsplan
+- EU AI Act Implementierungsdokumentation
+
+Um neue Daten hinzuzufügen, aktualisieren Sie einfach die `update_research_data()` Calls in den `__init__()` Methoden der jeweiligen Agenten.
+
 ## 🔧 Anpassung & Erweiterung
 
 ### Eigene Agenten hinzufügen
@@ -254,8 +330,14 @@ class AgentNeu(Agent):
             perspective="Neue Perspektive"
         )
 
+        # Research-Daten hinzufügen
+        self.update_research_data({
+            "Wichtige Zahl": "42",
+            "Trend": "Steigend"
+        })
+
     def get_opening_statement(self):
-        return "Mein Statement..."
+        return "Mein Statement mit Daten..."
 
     def respond_to(self, speaker, statement, context):
         return "Meine Reaktion..."

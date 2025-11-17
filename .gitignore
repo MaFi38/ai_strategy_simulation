@@ -32,10 +32,13 @@ env/
 *.swo
 *~
 
-# Simulation Output
-protokoll_*.txt
-diskussion_*.txt
+# Simulation Output (nur im Root-Verzeichnis)
+/protokoll_*.txt
+/diskussion_*.txt
 *.log
+
+# Ergebnisse-Ordner wird getrackt
+!ergebnisse/**
 
 # OS
 .DS_Store
